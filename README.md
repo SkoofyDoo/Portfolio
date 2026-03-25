@@ -2,6 +2,10 @@
 
 Interaktives 3D-Portfolio zur Präsentation meiner Projekte und Fähigkeiten als Fullstack-Entwickler.
 
+## Live
+
+🔗 [portfolio-tawny-nine-79.vercel.app](https://portfolio-tawny-nine-79.vercel.app)
+
 ---
 
 ## Vorschau
@@ -18,7 +22,6 @@ Interaktives 3D-Portfolio zur Präsentation meiner Projekte und Fähigkeiten als
 - Fly-to-Berlin Animation mit CSS2D-Label
 - Projektübersicht mit 3D-Hover-Effekt
 - Framer Motion Animationen
-- Vollständig responsiv
 
 ---
 
@@ -41,4 +44,3 @@ Interaktives 3D-Portfolio zur Präsentation meiner Projekte und Fähigkeiten als
 | Automatisierte-Schärfe-Analyse | Node.js, OpenCV.js, Sharp |
 
 ---
-
