@@ -217,7 +217,7 @@ export default function HeroSection({flyToBerlin}){
         // Material für Wolken
         const cloudMaterial = new THREE.MeshPhongMaterial({
             map: cloudTexture,
-            opacity: 0.95,
+            opacity: 0.93,
             transparent: true,
             alphaTest: 0.01,
             fog: true,
@@ -298,6 +298,7 @@ export default function HeroSection({flyToBerlin}){
         
         planet.rotation.y = -1.8
         planet.rotation.z = -0.4
+        planet.rotation.x = 0.1
 
         planet.castShadow = true
         planet.receiveShadow = true
@@ -318,8 +319,9 @@ export default function HeroSection({flyToBerlin}){
 
             moon.rotation.y += 0.0005
 
-            clouds.rotation.x  += 0.00005
-            clouds.rotation.z  += 0.0000005
+            clouds.rotation.y  += -0.00005
+            
+            
             
             time += 0.001
             // camera.position.z += (targetCameraZ - camera.position.z) * 0.05
@@ -327,7 +329,7 @@ export default function HeroSection({flyToBerlin}){
                 planet.quaternion.slerp(berlinQuaternion, 0.02)
                 camera.position.z += (1.5 - camera.position.z) * 0.02
             } else {
-                planet.rotateY(0.0001)                
+                planet.rotateY(0.00015)                
                 camera.position.x += (mouse.x * 2 - camera.position.x) * 0.05
                 camera.position.y += (mouse.y * 2 - camera.position.y) * 0.05
                 camera.position.z += (targetCameraZ - camera.position.z) * 0.05

@@ -6,26 +6,30 @@ export default function Projects() {
             title: '3D-Vorschau-Pipeline — Headless Rendering & Modellschutz',
             stack: ['Node.js ',  'Express ', 'Nextcloud WebDAV ','Puppeteer ', 'SSE ', 'Three.js ', 'DynamoDB ', 'Cognito', 'Amplify'],
             description: 'Serverseitige Pipeline zur automatisierten Vorschaugenerierung von 3D-Medizinscans. Puppeteer startet einen headless Chromium-Prozess, der Three.js mit WebGL2 ausführt und 12 Kameraansichten rendert – texturiert und als Wireframe.',
-            github: 'https://github.com/SkoofyDoo/3D-Vorschau-Pipeline-Headless-Rendering-Approval-Workflow'
+            github: 'https://github.com/SkoofyDoo/3D-Vorschau-Pipeline-Headless-Rendering-Approval-Workflow',
+            label: 'GitHub'
         },
         {
             title: 'Dallio',
             stack: ['EC2 ', 'S3 ', 'Lambda ', 'Bedrock ', 'DynamoDB ', 'Cognito', 'Amplify'],
             description: 'Der Smart Document Analyzer ist ein intelligenter persönlicher Assistent für die deutsche Bürokratie. Die Anwendung hilft Benutzern, ihre Dokumente (Rechnungen, Behördenbriefe) zu digitalisieren, Finanzen zu tracken und automatisch Termine aus Briefen zu extrahieren.',
-            github: 'https://dallio.de'
+            github: 'https://dallio.de',
+            label: 'Dallio.de'
         },
         { 
             title: 'Client-Based-VideoSlicer',
             stack: ['JavaScript ', 'React '],
             description: 'Ein React-Komponente zur automatischen Extraktion von Einzelbildern (Frames) aus Videodateien – vollständig im Browser, ohne Backend oder externe Bibliotheken.',
-            github: 'https://github.com/SkoofyDoo/Client-Based-VideoSlicer'
+            github: 'https://github.com/SkoofyDoo/Client-Based-VideoSlicer',
+            label: 'GitHub'
     
         },
         {
             title: 'Automatisierte-Schaerfe-Analyse',
             stack: ['Node.js ', 'OpenCV.WASM ', 'Sharp ', 'archiver '],
             description: 'Ein Node.js-Modul zur automatischen Schärfebewertung und Filterung von Video-Frames auf dem Server. Unscharfe Bilder werden aussortiert, die besten Frames als ZIP archiviert.',
-            github: 'https://github.com/SkoofyDoo/Automatisierte-Schaerfe-Analyse'
+            github: 'https://github.com/SkoofyDoo/Automatisierte-Schaerfe-Analyse',
+            label: 'GitHub'
         },
         
     
@@ -44,7 +48,7 @@ export default function Projects() {
                                 <span className="bg-zinc-700 text-gray-300 border text-l px-2 py-1 rounded mr-1" key={i}>{tech}</span>
                             ))}
                         </div>
-                        <a className="text-blue-400 hover:text-blue-300 mt-4 block" href={project.github}>GitHub</a>
+                        <a className="text-blue-400 hover:text-blue-300 mt-4 block" href={project.github}>{project.label || 'GitHub'}</a>
                     </motion.div>
                 ))}
             </div>
