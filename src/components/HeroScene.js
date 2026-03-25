@@ -30,6 +30,7 @@ export default function HeroSection({flyToBerlin}){
         const scene = new THREE.Scene()
         
         
+        
         // Camera
         const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 2000)
         
@@ -94,10 +95,10 @@ export default function HeroSection({flyToBerlin}){
         const renderPass = new RenderPass(scene, camera)
         composer.addPass(renderPass)
 
-        // Bloom
-        const bloomPass = new UnrealBloomPass(
-            new THREE.Vector2(window.innerWidth, window.innerHeight), 3, 2, 0.6)
-        
+        // // Bloom
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1, 0.3, 0.6)
+
+
         composer.addPass(bloomPass)
         
         // PartikelAnzhal (Stere)
@@ -113,6 +114,8 @@ export default function HeroSection({flyToBerlin}){
         
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
 
+        // Space
+        const bgGeometry = new THREE.SphereGeometry(1000, 64, 64)
         // Erde
         const planetGeometry = new THREE.SphereGeometry(1, 92, 92)
         // Atmo
@@ -125,12 +128,19 @@ export default function HeroSection({flyToBerlin}){
         //-----------TexturLoader --------------------
         const textureLoader = new THREE.TextureLoader()
         
+        // Space
+        const bgTexture = textureLoader.load('space_bg.jpg')
+        bgTexture.minFilter = THREE.LinearFilter
+        bgTexture.magFilter = THREE.LinearFilter
+        bgTexture.colorSpace = THREE.SRGBColorSpace
+
         // SterneTextur
         const starTexture = textureLoader.load('star.png')
         
         // Wolken
         const cloudTexture = textureLoader.load('e_cloud.jpg')
 
+        // Mond 
         const moonTexture = textureLoader.load('moon.jpg')
         
         
@@ -142,6 +152,14 @@ export default function HeroSection({flyToBerlin}){
             transparent: true, 
             alphaTest: 0.01
         })
+
+
+        // Space
+        const bgMaterial = new THREE.MeshBasicMaterial({
+            map: bgTexture,
+            side: THREE.BackSide
+        })
+
 
         // Material für Erde
         const planetMaterial = new THREE.ShaderMaterial({
@@ -182,7 +200,8 @@ export default function HeroSection({flyToBerlin}){
                     
                     float specular = pow(max(0.0, intensity), 32.0) * 0.6;
                     
-                    gl_FragColor = mix(night, day, blend) + vec4(specular, specular, specular, 0.0);
+                    vec4 nightBoosted = night * 3.5;
+                    gl_FragColor = mix(nightBoosted, day, blend) + vec4(specular, specular, specular, 0.0);
                 }
             `
         })
@@ -198,7 +217,7 @@ export default function HeroSection({flyToBerlin}){
         // Material für Wolken
         const cloudMaterial = new THREE.MeshPhongMaterial({
             map: cloudTexture,
-            opacity: 0.91,
+            opacity: 0.95,
             transparent: true,
             alphaTest: 0.01,
             fog: true,
@@ -211,7 +230,8 @@ export default function HeroSection({flyToBerlin}){
             
         })
 
-    
+        // Space 
+        const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial)
 
         // Erde
         const planet = new THREE.Mesh(planetGeometry, planetMaterial)
@@ -242,9 +262,11 @@ export default function HeroSection({flyToBerlin}){
         // Mond
         const moon = new THREE.Mesh(moonGeometry, moonMaterial)
 
+
         scene.add(camera)
         scene.add(ambientLight)
         scene.add(directionalLight)
+        scene.add(bgMesh)
         scene.add(moon)
         scene.add(partickles)
         scene.add(planet)
@@ -297,7 +319,7 @@ export default function HeroSection({flyToBerlin}){
             moon.rotation.y += 0.0005
 
             clouds.rotation.x  += 0.00005
-            clouds.rotation.z  += 0.00005
+            clouds.rotation.z  += 0.0000005
             
             time += 0.001
             // camera.position.z += (targetCameraZ - camera.position.z) * 0.05
