@@ -33,7 +33,8 @@ export default function Home() {
             <HeroScene flyToBerlin={flyToBerlin}/>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <h1 className="font-serif font-extrabold tracking-widest text-3xl md:text-5xl text-center text-white">Evgeny Kvest</h1>
-                <h2 className="font-serif font-bold tracking-widest text-lg md:text-2xl text-2xl text-center text-white">Fachinformatiker für Anwendungsentwicklung</h2>
+                <h2 className="font-serif font-bold tracking-widest text-lg md:text-2xl text-2xl text-center text-white">Fullstack Developer · 3D Web & Video Processing · Node.js · AWS</h2>
+                
                 <div className="flex gap-6 mt-6 items-center">
                   {/* LinkedIn */}
                   <a href="https://www.linkedin.com/in/evgeny-kvest-978137345/" target="_blank" rel="noopener noreferrer"
