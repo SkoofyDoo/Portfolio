@@ -29,8 +29,8 @@ export default function Home() {
         <div className="relative h-screen">
             <HeroScene flyToBerlin={flyToBerlin}/>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <h1 className="font-serif font-extrabold tracking-widest text-5xl text-white">Evgeny Kvest</h1>
-                <h2 className="font-serif font-bold tracking-widest text-2xl text-white">Fachinformatiker für Anwendungsentwicklung</h2>
+                <h1 className="font-serif font-extrabold tracking-widest text-3xl md:text-5xl text-center text-white">Evgeny Kvest</h1>
+                <h2 className="font-serif font-bold tracking-widest text-lg md:text-2xl text-2xl text-center text-white">Fachinformatiker für Anwendungsentwicklung</h2>
                 {/* <p className="text-gray-300 text-md">Hallo, ich heisse Evgeny Kvest...</p> */}
                 <div className="px-8 py-4">
                     {/* <Button color="error">Projekte</Button>
