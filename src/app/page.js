@@ -1,6 +1,7 @@
 'use client'
 import dynamic from 'next/dynamic';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from '@vercel/analytics';
 import {useState} from 'react'
 
 const HeroScene = dynamic(() => import('@/components/HeroScene'), {
@@ -28,6 +29,7 @@ export default function Home() {
         {/* Hero */}
         <div className="relative h-screen">
         <SpeedInsights />
+        <Analytics/>
             <HeroScene flyToBerlin={flyToBerlin}/>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <h1 className="font-serif font-extrabold tracking-widest text-3xl md:text-5xl text-center text-white">Evgeny Kvest</h1>
