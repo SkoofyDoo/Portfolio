@@ -16,7 +16,7 @@ export default function Contact(){
         <h2 className="text-white text-3xl font-bold mb-10">Kontakt</h2>
         <div className="grid grid-cols-1 max-w-md gap-6">
             {contact.map((contact, index) => (
-                <motion.div key={index} initial={{opacity: 0, y: 50}} whileInView={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: index * 0.15}} className="bg-zinc-900 rounded-xl p-6">
+                <motion.div key={index} initial={{opacity: 0, y: 50}} whileInView={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: index * 0.15}} viewport={{ once: true }} className="bg-zinc-900 rounded-xl p-6">
                     <h3 className="text-white text-xl font-bold mb-3">{contact.city}</h3>
                     <p className="text-gray-400">{contact.email}</p>
                     

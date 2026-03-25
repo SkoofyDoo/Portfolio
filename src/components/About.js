@@ -32,7 +32,7 @@ export default function About() {
                 {about[0].skills.map((skillGroup, index) => {
                     const [category, items] = Object.entries(skillGroup)[0]
                     return (
-                        <motion.div key={index} initial={{opacity: 0, y: 50}} whileInView={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: index * 0.15}} className="bg-zinc-900 rounded-xl p-4 ">
+                        <motion.div key={index} initial={{opacity: 0, y: 50}} whileInView={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: index * 0.15}} viewport={{ once: true }} className="bg-zinc-900 rounded-xl p-4 ">
                             <h3 className="text-center text-white font-bold text-sm md:text-base mb-2 ">{category}</h3>
                             {items.map((skill, i) => (
                                 <span key={i} className="border mb-2 flex flex-col justify-between bg-zinc-700 text-gray-300 text-sm md:text-base px-2 py-1 rounded mr-1">{skill}</span>
