@@ -47,6 +47,9 @@ export default function HeroSection({flyToBerlin}){
         renderer.setSize(window.innerWidth, window.innerHeight)
         renderer.setPixelRatio(window.devicePixelRatio)
 
+
+
+
         // CSS2D Renderer für Berlin Label
         const labelRenderer = new CSS2DRenderer()
         labelRenderer.setSize(window.innerWidth, window.innerHeight)
@@ -289,13 +292,24 @@ export default function HeroSection({flyToBerlin}){
         window.addEventListener('mousemove', handleMouseMove)
 
         let targetCameraZ = 5
-        const handleMouseScroll = (event) => {
+        const handleMouseScroll = () => {
             const scrollProgress = window.scrollY / window.innerHeight
             targetCameraZ = 5 - scrollProgress * 2.5
             
         }
         window.addEventListener('scroll', handleMouseScroll)        
-        
+
+        // Resize
+        const handleResize = () => {
+            camera.aspect = window.innerWidth/window.innerHeight
+            camera.updateProjectionMatrix()
+            renderer.setSize(window.innerWidth, window.innerHeight)
+            composer.setSize(window.innerWidth, window.innerHeight)
+            labelRenderer.setSize(window.innerWidth, window.innerHeight)
+        }
+
+        window.addEventListener('resize', handleResize)
+
         planet.rotation.y = -1.8
         planet.rotation.z = -0.4
         planet.rotation.x = 0.1
@@ -319,7 +333,7 @@ export default function HeroSection({flyToBerlin}){
 
             moon.rotation.y += 0.0005
 
-            clouds.rotation.y  += -0.00005
+            clouds.rotation.y  += -0.00001
             
             
             
@@ -342,10 +356,13 @@ export default function HeroSection({flyToBerlin}){
             camera.lookAt(0,0,0)
             
             composer.render()
+
+
         }
         animate();
         return() => {
             // CLEAN-UP
+            window.removeEventListener('resize', handleResize)
             window.removeEventListener('mousemove', handleMouseMove)
             window.removeEventListener('scroll', handleMouseScroll)
 

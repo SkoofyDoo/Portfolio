@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Portfolio – Evgeny Kvest
 
-## Getting Started
+Interaktives 3D-Portfolio zur Präsentation meiner Projekte und Fähigkeiten als Fullstack-Entwickler.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Vorschau
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> 🌍 Ein interaktiver Globus rendert die Erde in Echtzeit – mit Day/Night-Cycle, Wolken, Atmosphäre und einem Fly-to-Berlin-Effekt der den Standort Berlin markiert.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+- Echtzeit-3D-Globus mit Custom GLSL Shader (Day/Night, Normal Map, Specular Map)
+- Bloom Postprocessing via `UnrealBloomPass`
+- Animierter Mond mit Umlaufbahn
+- Fly-to-Berlin Animation mit CSS2D-Label
+- Projektübersicht mit 3D-Hover-Effekt
+- Framer Motion Animationen
+- Vollständig responsiv
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technischer Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Next.js](https://nextjs.org/) – React Framework
+- [Three.js](https://threejs.org/) – 3D Rendering & WebGL
+- [Framer Motion](https://www.framer.com/motion/) – Animationen
+- [Tailwind CSS](https://tailwindcss.com/) – Styling
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Projekte im Portfolio
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Projekt | Stack |
+|---|---|
+| 3D-Vorschau-Pipeline | Node.js, Puppeteer, Three.js, DynamoDB |
+| Dallio | AWS EC2, S3, Lambda, Bedrock, Cognito |
+| Client-Based-VideoSlicer | JavaScript, React |
+| Automatisierte-Schärfe-Analyse | Node.js, OpenCV.js, Sharp |
+
+---
+
