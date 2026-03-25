@@ -149,7 +149,7 @@ export default function HeroSection({flyToBerlin}){
                 dayTexture: { value: textureLoader.load('earth.jpg') },
                 nightTexture: { value: textureLoader.load('e_night.jpg') },
                 normalMap: { value: textureLoader.load('earth_normal_map.jpg') },
-                sunDirection: { value: new THREE.Vector3(-60, 40, 10).normalize() }
+                sunDirection: { value: new THREE.Vector3(-60, 10, 10).normalize() }
             },
             vertexShader: `
                 varying vec2 vUv;
@@ -275,7 +275,7 @@ export default function HeroSection({flyToBerlin}){
         window.addEventListener('scroll', handleMouseScroll)        
         
         planet.rotation.y = -1.8
-        planet.rotation.z = -0.3
+        planet.rotation.z = -0.4
 
         planet.castShadow = true
         planet.receiveShadow = true
