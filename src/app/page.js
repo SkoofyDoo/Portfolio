@@ -1,7 +1,7 @@
 'use client'
 import dynamic from 'next/dynamic';
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from '@vercel/analytics';
+import { Analytics } from '@vercel/analytics/next';
 import {useState} from 'react'
 
 const HeroScene = dynamic(() => import('@/components/HeroScene'), {
