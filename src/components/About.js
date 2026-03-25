@@ -3,7 +3,7 @@ import {motion} from 'framer-motion'
 export default function About() {
     const about = [
         {
-            text: 'Ich bin Evgeny Kvest, Fachinformatiker für Anwendungsentwicklung aus Berlin. Seit 2026 entwickle ich professionell Webanwendungen mit Fokus auf JavaScript, Node.js und AWS. Ich kombiniere solides Backend-Know-How mit moderenen Fronetend-Technologien - und bringe dabei auch 3D-Visualisierungen ins Web',
+            text: 'Ich bin Evgeny Kvest, Fachinformatiker für Anwendungsentwicklung aus Berlin. Ich entwickle professionell Webanwendungen mit Fokus auf JavaScript, Node.js und AWS. Ich kombiniere solides Backend-Know-How mit modernen Frontend-Technologien - und bringe dabei auch 3D-Visualisierungen ins Web',
             skills: [
                 { 
                     Backend: ['Node.js', 'Express', 'REST APIs', 'Puppeteer']
