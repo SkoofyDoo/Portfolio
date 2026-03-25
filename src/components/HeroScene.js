@@ -333,7 +333,7 @@ export default function HeroSection({flyToBerlin}){
 
             moon.rotation.y += 0.0005
 
-            clouds.rotation.y  += -0.00001
+            clouds.rotation.y  += -0.00006
             
             
             
