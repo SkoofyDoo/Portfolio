@@ -25,17 +25,17 @@ export default function About() {
     }
 ]
     return (
-        <section className="py-20 px-10">
+        <section className="py-20 px-10 md:px-10">
             <h2 className="text-white text-3xl text-center font-bold mb-10">Über mich</h2>
-            <p className="text-gray-300 mb-10">{about[0].text}</p>
+            <p className="text-gray-300 text-sm md:text-base mb-10">{about[0].text}</p>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {about[0].skills.map((skillGroup, index) => {
                     const [category, items] = Object.entries(skillGroup)[0]
                     return (
                         <motion.div key={index} initial={{opacity: 0, y: 50}} whileInView={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: index * 0.15}} className="bg-zinc-900 rounded-xl p-4 ">
-                            <h3 className="text-center text-white font-boldest mb-2">{category}</h3>
+                            <h3 className="text-center text-white font-bold text-sm md:text-base mb-2 ">{category}</h3>
                             {items.map((skill, i) => (
-                                <span key={i} className="border mb-2 flex flex-col justify-between bg-zinc-700 text-gray-300 text-xl px-2 py-1 rounded mr-1">{skill}</span>
+                                <span key={i} className="border mb-2 flex flex-col justify-between bg-zinc-700 text-gray-300 text-sm md:text-base px-2 py-1 rounded mr-1">{skill}</span>
                             ))}
                         </motion.div>
                     )
