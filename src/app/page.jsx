@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from '@vercel/analytics/next';
 import {useState} from 'react'
 
+
 const HeroScene = dynamic(() => import('@/components/HeroScene'), {
   ssr: false
 })
@@ -17,11 +18,9 @@ const Contact = dynamic(() => import('@/components/Contact'))
 export default function Home() {
 
   const [flyToBerlin, setFlyToBerlin] = useState(false)
+  const [loaded, setLoaded] = useState(false)
 
-  const handleContact = () => {
-    setFlyToBerlin(true)
-    setTimeout(() => setFlyToBerlin(false), 5000)
-  }
+
 
   return (
     <div className="font-serif font-bold tracking-wider dark:bg-black">
@@ -30,7 +29,12 @@ export default function Home() {
         <div className="relative h-screen">
         <SpeedInsights />
         <Analytics/>
-            <HeroScene flyToBerlin={flyToBerlin}/>
+            <HeroScene flyToBerlin={flyToBerlin} onLoad={()=> setLoaded(true)}/>
+            {!loaded && (
+              <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+                <p className="text-white text-xl tracking-widest animate-pulse">Loading...</p>
+              </div>
+            )}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <h1 className="font-serif font-extrabold tracking-widest text-3xl md:text-5xl text-center text-white">Evgeny Kvest</h1>
                 <h2 className="font-serif font-bold tracking-widest text-lg md:text-2xl text-2xl text-center text-white">Fullstack Developer · 3D Web & Video Processing · Node.js · AWS</h2>
@@ -72,6 +76,10 @@ export default function Home() {
           <About/>
           <Contact/>
         </div>
+        <footer className='relative py-6 text-center text-gray-500 text-sm bg-zinc-900'>
+          <a href="/impressum" className='hover:text-white mx-4'>Impressum</a>
+          <a href="datenschutz" className='hover:text-white mx-4'>Datenschutz</a>         
+        </footer>
 
         
 

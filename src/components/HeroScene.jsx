@@ -11,11 +11,14 @@ import {CSS2DRenderer, CSS2DObject} from 'three/examples/jsm/renderers/CSS2DRend
 
 
 
-export default function HeroSection({flyToBerlin}){
+export default function HeroSection({flyToBerlin, onLoad}){
     const canvasRef = useRef(null)
     const flyRef = useRef(null)
     
-
+    const loadingManager = new THREE.LoadingManager()
+    loadingManager.onLoad = () => {
+        if(onLoad) onLoad()
+    }
 
     
     useEffect(() => {
@@ -129,7 +132,7 @@ export default function HeroSection({flyToBerlin}){
         const moonGeometry = new THREE.SphereGeometry(0.25, 195, 195)
         
         //-----------TexturLoader --------------------
-        const textureLoader = new THREE.TextureLoader()
+        const textureLoader = new THREE.TextureLoader(loadingManager)
         
         // Space
         const bgTexture = textureLoader.load('space_bg.jpg')
@@ -294,7 +297,7 @@ export default function HeroSection({flyToBerlin}){
         let targetCameraZ = 5
         const handleMouseScroll = () => {
             const scrollProgress = window.scrollY / window.innerHeight
-            targetCameraZ = 5 - scrollProgress * 2.5
+            targetCameraZ = 5 - scrollProgress * 1.8
             
         }
         window.addEventListener('scroll', handleMouseScroll)        
