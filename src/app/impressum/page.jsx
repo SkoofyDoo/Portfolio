@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Impressum(){
     return (
         <div className="min-h-screen bg-black text-white p-20">
@@ -6,7 +8,7 @@ export default function Impressum(){
             <p>Berlin, Deutschland</p>
             <p>evgenykvest@gmail.com</p>
             <div>
-            <a href="/" className="text-blue-400 hover:text-blue-300">🔙 Zurück zur Startseite</a>   
+            <Link href="/" className="text-blue-400 hover:text-blue-300" title="🔙 Zurück zur Startseite"/>   
             </div>
                  
         </div>

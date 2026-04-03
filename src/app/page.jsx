@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from '@vercel/analytics/next';
-import {useState} from 'react'
+import { useState} from 'react'
 
 
 const HeroScene = dynamic(() => import('@/components/HeroScene'), {
@@ -16,8 +16,6 @@ const About = dynamic(() => import('@/components/About'))
 const Contact = dynamic(() => import('@/components/Contact'))
 
 export default function Home() {
-
-  const [flyToBerlin, setFlyToBerlin] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
 
@@ -29,7 +27,7 @@ export default function Home() {
         <div className="relative h-screen">
         <SpeedInsights />
         <Analytics/>
-            <HeroScene flyToBerlin={flyToBerlin} onLoad={()=> setLoaded(true)}/>
+            <HeroScene  onLoad={()=> setLoaded(true)}/>
             {!loaded && (
               <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
                 <p className="text-white text-xl tracking-widest animate-pulse">Loading...</p>
