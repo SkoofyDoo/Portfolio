@@ -51,8 +51,9 @@ export const projects = [
     accent: "from-cyan-500/30 via-sky-600/10 to-transparent",
     previewLabel: "RAG · FastAPI · Live",
     media: {
-      type: "external",
-      note: "Demo-GIF im Repo docs/assets/demo-preview.gif",
+      type: "video",
+      src: "/projects/widerspruch-jetzt/widerspruch.mp4",
+      poster: "/projects/widerspruch-jetzt/banner.jpg",
     },
     flow: ["Ingest Laws", "Retrieve", "Generate", "Guards", "PDF/Preview"],
   },
@@ -137,7 +138,10 @@ export const projects = [
     secondaryLabel: "GitHub",
     accent: "from-violet-500/30 via-indigo-600/10 to-transparent",
     previewLabel: "Product · AWS · Live",
-    media: null,
+    media: {
+      type: "video",
+      src: "/projects/dallio/dallio.mp4",
+    },
     flow: ["Upload", "Analyze", "Extract", "Track", "Notify"],
   },
   {

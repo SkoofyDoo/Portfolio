@@ -1,76 +1,172 @@
+import LegalShell, { LegalLink, LegalSection } from '@/components/LegalShell'
+
+export const metadata = {
+  title: 'Datenschutz · Evgeny Kvest',
+  description:
+    'Datenschutzerklärung zum Portfolio von Evgeny Kvest – Hosting, Analytics, externe Links und lokale Demos.',
+}
+
 export default function Datenschutz() {
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-16 md:p-20">
-      <div className="mx-auto max-w-3xl">
-        <h1 className="mb-10 text-3xl font-bold">Datenschutzerklärung</h1>
-
-        <h2 className="mb-4 text-xl font-bold">1. Verantwortlicher</h2>
-        <p className="mb-8 text-gray-300">
+    <LegalShell title="Datenschutzerklärung" eyebrow="Datenschutz · DSGVO">
+      <LegalSection title="1. Verantwortlicher">
+        <p className="text-zinc-300">
           Evgeny Kvest
           <br />
           Berlin, Deutschland
           <br />
-          E-Mail: evgenykvest@gmail.com
+          E-Mail:{' '}
+          <LegalLink href="mailto:evgenykvest@gmail.com">evgenykvest@gmail.com</LegalLink>
         </p>
+      </LegalSection>
 
-        <h2 className="mb-4 text-xl font-bold">2. Erhebung von Daten</h2>
-        <p className="mb-8 text-gray-300">
-          Diese Website erhebt keine personenbezogenen Daten über eigene Formulare und setzt
-          keine Marketing-Cookies. Beim Besuch können technische Daten (z.&nbsp;B. IP-Adresse,
-          Browser-Typ, Zeitstempel) durch den Hosting-Anbieter und integrierte Analyse-Dienste
-          verarbeitet werden.
+      <LegalSection title="2. Zweck dieser Website">
+        <p>
+          Diese Website ist ein persönliches Entwickler-Portfolio. Sie präsentiert Projekte
+          (u.&nbsp;a. widerspruch.jetzt, Dallio, SharpEye, 3D- und Media-Pipelines), Skills und
+          Kontaktmöglichkeiten. Es gibt kein Benutzerkonto und kein eigenes Kontaktformular mit
+          Server-Speicherung.
         </p>
+      </LegalSection>
 
-        <h2 className="mb-4 text-xl font-bold">3. Hosting</h2>
-        <p className="mb-8 text-gray-300">
-          Diese Website wird über Vercel Inc. gehostet. Vercel kann beim Aufruf der Seite
-          technische Daten wie IP-Adressen in Server-Logs speichern. Weitere Informationen:{' '}
-          <a
-            href="https://vercel.com/legal/privacy-policy"
-            className="text-blue-400 hover:text-blue-300"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+      <LegalSection title="3. Welche Daten anfallen">
+        <p>
+          <strong className="text-zinc-300">Keine eigenen Formulare:</strong> Es werden keine
+          personenbezogenen Daten über ein serverseitiges Formular erhoben oder in einer eigenen
+          Datenbank gespeichert. E-Mail-Kontakt läuft über{' '}
+          <LegalLink href="mailto:evgenykvest@gmail.com">mailto:</LegalLink> (Ihr E-Mail-Client /
+          Anbieter).
+        </p>
+        <p>
+          <strong className="text-zinc-300">Technische Zugriffsdaten:</strong> Beim Aufruf der
+          Seite können durch Hosting und Analyse Dienste technisch notwendige bzw.
+          nutzungsbezogene Daten anfallen (z.&nbsp;B. IP-Adresse, Zeitstempel, User-Agent,
+          aufgerufene URL, Performance-Metriken).
+        </p>
+        <p>
+          <strong className="text-zinc-300">Zwischenablage (optional):</strong> Die
+          «E-Mail kopieren»-Funktion nutzt die Browser-Clipboard-API lokal auf Ihrem Gerät. Es
+          werden keine Daten an einen eigenen Server gesendet.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="4. Hosting (Vercel)">
+        <p>
+          Die Website wird bei <strong className="text-zinc-300">Vercel Inc.</strong> gehostet.
+          Vercel kann in Server-Logs technische Daten (u.&nbsp;a. IP-Adressen) speichern, soweit
+          dies zum Betrieb und zur Sicherheit erforderlich ist.
+        </p>
+        <p>
+          Weitere Informationen:{' '}
+          <LegalLink href="https://vercel.com/legal/privacy-policy">
             vercel.com/legal/privacy-policy
-          </a>
+          </LegalLink>
         </p>
+      </LegalSection>
 
-        <h2 className="mb-4 text-xl font-bold">4. Analyse (Vercel Analytics &amp; Speed Insights)</h2>
-        <p className="mb-8 text-gray-300">
-          Zur Verbesserung der Website-Performance und des Nutzungsverhaltens sind{' '}
-          <strong>Vercel Analytics</strong> und <strong>Vercel Speed Insights</strong>{' '}
-          eingebunden. Diese Dienste erfassen anonymisierte bzw. pseudonymisierte Nutzungs- und
-          Performance-Metriken. Es werden keine klassischen Werbe-Cookies zu Tracking-Zwecken
-          gesetzt. Details:{' '}
-          <a
-            href="https://vercel.com/docs/analytics/privacy-policy"
-            className="text-blue-400 hover:text-blue-300"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+      <LegalSection title="5. Analyse – Vercel Analytics &amp; Speed Insights">
+        <p>
+          Zur Messung von Reichweite und Ladeperformance sind{' '}
+          <strong className="text-zinc-300">Vercel Analytics</strong> und{' '}
+          <strong className="text-zinc-300">Vercel Speed Insights</strong> eingebunden. Es werden
+          (pseudo-)anonymisierte Nutzungs- und Performance-Metriken verarbeitet. Es handelt sich
+          nicht um klassisches Werbe-Tracking mit Marketing-Cookies Dritter.
+        </p>
+        <p>
+          Rechtsgrundlage: berechtigtes Interesse an der stabilen und performanten Darstellung des
+          Portfolios (Art. 6 Abs. 1 lit. f DSGVO).
+        </p>
+        <p>
+          Details:{' '}
+          <LegalLink href="https://vercel.com/docs/analytics/privacy-policy">
             Vercel Analytics Privacy
-          </a>
-          .
+          </LegalLink>
         </p>
+      </LegalSection>
 
-        <h2 className="mb-4 text-xl font-bold">5. Externe Links</h2>
-        <p className="mb-8 text-gray-300">
-          Diese Website enthält Links zu GitHub, LinkedIn und ggf. weiteren Projekten (z.&nbsp;B.
-          dallio.de). Für die Datenschutzpraktiken dieser Dienste sind deren eigene
-          Datenschutzrichtlinien maßgeblich.
+      <LegalSection title="6. Interaktive Demo (Schärfe-Analyse im Browser)">
+        <p>
+          Auf der Portfolio-Startseite gibt es eine optionale{' '}
+          <strong className="text-zinc-300">Computer-Vision-Demo</strong> (Laplacian-Varianz /
+          Schärfe-Schätzung). Gewählte Bilder werden{' '}
+          <strong className="text-zinc-300">nur lokal im Browser</strong> verarbeitet. Es findet{' '}
+          <strong className="text-zinc-300">kein Upload</strong> auf einen eigenen Server statt.
+          Nach dem Schließen der Seite bleiben die Bilddaten nicht bei mir gespeichert.
         </p>
+      </LegalSection>
 
-        <h2 className="mb-4 text-xl font-bold">6. Rechte der Nutzer</h2>
-        <p className="mb-8 text-gray-300">
-          Soweit personenbezogene Daten verarbeitet werden, stehen Ihnen unter der DSGVO
-          Auskunfts-, Berichtigungs-, Löschungs- und Widerspruchsrechte zu. Anfragen richten Sie
-          bitte an die oben genannte E-Mail-Adresse.
+      <LegalSection title="7. 3D-Darstellung &amp; lokale Assets">
+        <p>
+          Die interaktive 3D-Erde (Three.js) lädt Texturen und Skripte von dieser Website
+          (Hosting). Es werden keine Kontodaten dafür benötigt. WebGL läuft im Browser auf Ihrem
+          Gerät.
         </p>
+      </LegalSection>
 
-        <a href="/" className="text-blue-400 hover:text-blue-300">
-          ← Zurück zur Startseite
-        </a>
-      </div>
-    </div>
+      <LegalSection title="8. Externe Links &amp; eingebundene Ziele">
+        <p>
+          Das Portfolio verlinkt u.&nbsp;a. auf:
+        </p>
+        <ul className="list-disc space-y-1 pl-5">
+          <li>
+            <LegalLink href="https://github.com/SkoofyDoo">GitHub</LegalLink> (Code / Architektur)
+          </li>
+          <li>
+            <LegalLink href="https://www.linkedin.com/in/evgeny-kvest-978137345/">
+              LinkedIn
+            </LegalLink>
+          </li>
+          <li>
+            <LegalLink href="https://dallio.de">dallio.de</LegalLink> (eigenes Produkt)
+          </li>
+          <li>
+            <LegalLink href="https://sgb2-rag-production.up.railway.app/ui/">
+              widerspruch.jetzt Live-Demo
+            </LegalLink>{' '}
+            (Hosting u.&nbsp;a. über Railway / ggf. Hugging Face in der Demo)
+          </li>
+          <li>Weitere Projektrepos (z.&nbsp;B. SharpEye, Praxis-Pipelines)</li>
+        </ul>
+        <p>
+          Beim Verlassen dieser Website gelten die Datenschutzbestimmungen der jeweiligen
+          Anbieter. Ich habe keinen Einfluss auf deren Datenverarbeitung.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="9. Cookies">
+        <p>
+          Es werden keine eigenen Marketing-Cookies gesetzt. Technisch notwendige Speicherung
+          durch den Browser, den Hoster oder Vercel Analytics/Speed Insights kann im Rahmen der
+          jeweiligen Dienste anfallen. Details siehe Abschnitte 4 und 5 sowie die
+          Datenschutzhinweise von Vercel.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="10. Speicherdauer">
+        <p>
+          Eigene serverseitige Speicherung von Bewerber- oder Kontaktdaten findet über diese
+          Website nicht statt. Speicherdauern bei Vercel und verlinkten Diensten richten sich nach
+          deren jeweiligen Angaben.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="11. Ihre Rechte">
+        <p>
+          Soweit personenbezogene Daten verarbeitet werden, stehen Ihnen unter der DSGVO u.&nbsp;a.
+          Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung,
+          Datenübertragbarkeit sowie Widerspruch zu. Beschwerden können Sie an die zuständige
+          Aufsichtsbehörde richten.
+        </p>
+        <p>
+          Anfragen bitte an:{' '}
+          <LegalLink href="mailto:evgenykvest@gmail.com">evgenykvest@gmail.com</LegalLink>
+        </p>
+      </LegalSection>
+
+      <LegalSection title="12. Stand">
+        <p>Stand dieser Erklärung: Juli 2026. Bei wesentlichen Änderungen der Website (z.&nbsp;B.
+          neue Analyse-Tools oder Formulare) wird dieser Text aktualisiert.</p>
+      </LegalSection>
+    </LegalShell>
   )
 }

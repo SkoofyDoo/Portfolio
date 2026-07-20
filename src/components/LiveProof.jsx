@@ -1,0 +1,80 @@
+'use client'
+
+import { motion } from 'framer-motion'
+
+const lives = [
+  {
+    badge: 'LIVE',
+    title: 'widerspruch.jetzt',
+    blurb: 'RAG-Produkt: formelle Widersprüche aus SGB II/X – End-to-End deployed.',
+    href: 'https://sgb2-rag-production.up.railway.app/ui/',
+    cta: 'Demo öffnen',
+    accent: 'border-cyan-500/30 bg-cyan-500/5',
+  },
+  {
+    badge: 'LIVE',
+    title: 'Dallio',
+    blurb: 'Eigenes Produkt: Dokumente, Finanzen & Termine – AWS + Bedrock.',
+    href: 'https://dallio.de',
+    cta: 'dallio.de',
+    accent: 'border-violet-500/30 bg-violet-500/5',
+  },
+  {
+    badge: 'OPEN',
+    title: 'SharpEye',
+    blurb: 'Image-QC Library: Verdicts, CLI, API & Agent-Schema – nicht nur Scores.',
+    href: 'https://github.com/SkoofyDoo/sharpeye',
+    cta: 'GitHub',
+    accent: 'border-amber-500/30 bg-amber-500/5',
+  },
+]
+
+export default function LiveProof() {
+  return (
+    <section className="border-b border-white/5 py-14 md:py-16">
+      <div className="section-shell">
+        <div className="mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="mb-2 text-xs font-medium uppercase tracking-[0.25em] text-accent">
+              Sofort prüfbar
+            </p>
+            <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
+              Nicht nur Folien — laufende Systeme
+            </h2>
+          </div>
+          <p className="max-w-md text-sm text-zinc-500 md:text-right">
+            Ein starker Junior liefert Beweis, nicht Versprechen. Klick rein.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {lives.map((item, i) => (
+            <motion.a
+              key={item.title}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              viewport={{ once: true }}
+              className={`group rounded-2xl border p-5 transition hover:-translate-y-0.5 hover:border-white/25 ${item.accent}`}
+            >
+              <div className="mb-3 flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                  {item.badge}
+                </span>
+                <span className="text-xs text-zinc-500 transition group-hover:text-accent">
+                  {item.cta} →
+                </span>
+              </div>
+              <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.blurb}</p>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

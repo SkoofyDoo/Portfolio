@@ -10,7 +10,7 @@ Interaktives 3D-Portfolio zur Präsentation von Projekten und Fähigkeiten als F
 
 ## Vorschau
 
-> 🌍 Ein interaktiver Globus rendert die Erde in Echtzeit – mit Day/Night-Cycle, Wolken, Fresnel-Atmosphäre, Bloom und **Fly-to-Berlin**. Darunter: Featured Case Studies, Skill-Hierarchie und Conversion-Kontakt.
+> 🌍 Ein interaktiver Globus rendert die Erde in Echtzeit – mit Day/Night-Cycle, Wolken, Fresnel-Atmosphäre und Bloom. Darunter: Featured Case Studies, Skill-Hierarchie und Conversion-Kontakt.
 
 ---
 
@@ -19,7 +19,6 @@ Interaktives 3D-Portfolio zur Präsentation von Projekten und Fähigkeiten als F
 - Echtzeit-3D-Globus mit Custom GLSL Shader (Day/Night, Normal Map, Specular)
 - Fresnel-Atmosphere + Bloom Postprocessing (`UnrealBloomPass`)
 - Animierter Mond, Partikel, Mouse-Parallax, Scroll-Dolly
-- **Fly-to-Berlin** mit CSS2D-Label und Marker
 - Sticky Glass-Navigation (Desktop)
 - Featured Project Cases (Problem → Lösung → Metrics)
 - 3D-Tilt Project Cards (Framer Motion)

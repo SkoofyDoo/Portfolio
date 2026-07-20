@@ -7,23 +7,21 @@ import { useCallback, useState } from 'react'
 import Nav from '@/components/Nav'
 import HeroOverlay from '@/components/HeroOverlay'
 import Footer from '@/components/Footer'
+import LiveProof from '@/components/LiveProof'
+import WhyMe from '@/components/WhyMe'
 
 const HeroScene = dynamic(() => import('@/components/HeroScene'), {
   ssr: false,
 })
 
 const Projects = dynamic(() => import('@/components/Projects'))
+const VisionDemo = dynamic(() => import('@/components/VisionDemo'))
 const About = dynamic(() => import('@/components/About'))
 const Contact = dynamic(() => import('@/components/Contact'))
 
 export default function Home() {
-  const [flyToBerlin, setFlyToBerlin] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [progress, setProgress] = useState(0)
-
-  const handleFly = useCallback(() => {
-    setFlyToBerlin((prev) => !prev)
-  }, [])
 
   const handleLoad = useCallback(() => {
     setLoaded(true)
@@ -39,18 +37,13 @@ export default function Home() {
       <Analytics />
       <Nav />
 
-      {/* Hero */}
       <div className="relative h-screen">
-        <HeroScene
-          flyToBerlin={flyToBerlin}
-          onLoad={handleLoad}
-          onProgress={handleProgress}
-        />
+        <HeroScene onLoad={handleLoad} onProgress={handleProgress} />
 
         {!loaded && (
           <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
-            <p className="loading-pulse text-sm tracking-[0.35em] text-white/80 uppercase">
-              Loading
+            <p className="loading-pulse text-sm tracking-[0.2em] text-white/80">
+              Building systems, not slides…
             </p>
             <div className="mt-6 h-0.5 w-48 overflow-hidden rounded-full bg-white/10">
               <div
@@ -62,12 +55,14 @@ export default function Home() {
           </div>
         )}
 
-        <HeroOverlay onFlyToBerlin={handleFly} flying={flyToBerlin} />
+        <HeroOverlay />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 border-t border-white/10 bg-zinc-950/90 backdrop-blur-md">
+        <LiveProof />
+        <WhyMe />
         <Projects />
+        <VisionDemo />
         <About />
         <Contact />
         <Footer />

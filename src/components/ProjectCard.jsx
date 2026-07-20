@@ -39,8 +39,46 @@ function FlowSteps({ flow }) {
   )
 }
 
+function ProjectMedia({ media, title }) {
+  if (media.type === 'video' || media.type === 'mp4') {
+    return (
+      <video
+        className="absolute inset-0 h-full w-full object-cover object-top opacity-90"
+        src={media.src}
+        poster={media.poster || undefined}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label={`${title} preview`}
+      />
+    )
+  }
+
+  if (media.type === 'gif' || media.type === 'image') {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={media.src}
+        alt={`${title} preview`}
+        className="absolute inset-0 h-full w-full object-cover object-top opacity-90"
+      />
+    )
+  }
+
+  return null
+}
+
 function ProjectVisual({ project, featured }) {
   const isPraxis = project.kind === 'praxis'
+  const media = project.media
+  const hasMedia =
+    media?.src &&
+    (media.type === 'gif' ||
+      media.type === 'image' ||
+      media.type === 'video' ||
+      media.type === 'mp4')
 
   return (
     <div
@@ -48,8 +86,17 @@ function ProjectVisual({ project, featured }) {
         featured ? 'aspect-[16/10] md:min-h-[280px] md:aspect-[16/11]' : 'min-h-[200px] aspect-[16/10]'
       }`}
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${project.accent}`} />
-      <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/5 blur-3xl" />
+      {hasMedia ? (
+        <>
+          <ProjectMedia media={media} title={project.title} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
+        </>
+      ) : (
+        <>
+          <div className={`absolute inset-0 bg-gradient-to-br ${project.accent}`} />
+          <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/5 blur-3xl" />
+        </>
+      )}
 
       <div className="relative flex h-full flex-col justify-between p-5 pt-8">
         <div className="flex flex-wrap items-center gap-2">
@@ -71,11 +118,22 @@ function ProjectVisual({ project, featured }) {
         </div>
 
         <div>
-          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
-            {isPraxis ? 'Ergebnis · Fakten' : 'Highlights'}
-          </p>
-          <MetricTiles metrics={project.metrics} compact={!featured} />
-          {featured && <FlowSteps flow={project.flow} />}
+          {!hasMedia && (
+            <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+              {isPraxis ? 'Ergebnis · Fakten' : 'Highlights'}
+            </p>
+          )}
+          {hasMedia ? (
+            <div className="rounded-lg border border-white/10 bg-black/55 p-3 backdrop-blur-sm">
+              <MetricTiles metrics={project.metrics.slice(0, 2)} compact />
+              {featured && <FlowSteps flow={project.flow} />}
+            </div>
+          ) : (
+            <>
+              <MetricTiles metrics={project.metrics} compact={!featured} />
+              {featured && <FlowSteps flow={project.flow} />}
+            </>
+          )}
         </div>
       </div>
     </div>

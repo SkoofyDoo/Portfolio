@@ -104,3 +104,8 @@ button:focus-visible {
     animation: none;
   }
 }
+
+/* Legal pages */
+.legal-prose strong {
+  font-weight: 600;
+}

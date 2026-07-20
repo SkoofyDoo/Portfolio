@@ -1,6 +1,6 @@
 'use client'
 
-export default function HeroOverlay({ onFlyToBerlin, flying }) {
+export default function HeroOverlay() {
   return (
     <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
       <div className="pointer-events-auto flex flex-col items-center px-6 text-center">
@@ -24,17 +24,12 @@ export default function HeroOverlay({ onFlyToBerlin, flying }) {
           >
             Projekte entdecken
           </a>
-          <button
-            type="button"
-            onClick={onFlyToBerlin}
-            className={`rounded-full border px-6 py-2.5 text-sm font-medium transition ${
-              flying
-                ? 'border-accent bg-accent/20 text-white'
-                : 'border-white/30 text-white hover:bg-white/10'
-            }`}
+          <a
+            href="#kontakt"
+            className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-white/10"
           >
-            {flying ? 'Zurück zur Orbit-Ansicht' : '📍 Nach Berlin fliegen'}
-          </button>
+            Kontakt
+          </a>
         </div>
 
         <div className="mt-8 flex items-center gap-6">

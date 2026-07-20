@@ -5,19 +5,13 @@ import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
-import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 
-export default function HeroScene({ flyToBerlin, onLoad, onProgress }) {
+export default function HeroScene({ onLoad, onProgress }) {
   const canvasRef = useRef(null)
-  const flyRef = useRef(false)
   const visibleRef = useRef(true)
   const reduceMotionRef = useRef(false)
   const onLoadRef = useRef(onLoad)
   const onProgressRef = useRef(onProgress)
-
-  useEffect(() => {
-    flyRef.current = flyToBerlin
-  }, [flyToBerlin])
 
   useEffect(() => {
     onLoadRef.current = onLoad
@@ -57,51 +51,6 @@ export default function HeroScene({ flyToBerlin, onLoad, onProgress }) {
     renderer.setPixelRatio(pixelRatio)
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFShadowMap
-
-    const labelRenderer = new CSS2DRenderer()
-    labelRenderer.setSize(window.innerWidth, window.innerHeight)
-    labelRenderer.domElement.style.position = 'absolute'
-    labelRenderer.domElement.style.top = '0'
-    labelRenderer.domElement.style.left = '0'
-    labelRenderer.domElement.style.pointerEvents = 'none'
-    labelRenderer.domElement.style.zIndex = '5'
-    canvasRef.current.parentElement.appendChild(labelRenderer.domElement)
-
-    const berlinDiv = document.createElement('div')
-    berlinDiv.innerHTML = `
-      <div style="background: rgba(9,9,11,0.75); backdrop-filter: blur(12px);
-        border: 1px solid rgba(255,255,255,0.18); border-radius: 14px;
-        padding: 14px 18px; color: white; font-size: 13px; font-family: system-ui, sans-serif;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.45); display: none; min-width: 200px;">
-        <p style="margin:0 0 6px; font-weight:600; letter-spacing:0.02em;">📍 Berlin, Deutschland</p>
-        <p style="margin:0 0 8px; color:#a1a1aa;">evgenykvest@gmail.com</p>
-        <a href="https://github.com/SkoofyDoo" target="_blank" rel="noopener noreferrer"
-           style="color:#60a5fa; text-decoration:none; pointer-events:auto;">GitHub →</a>
-      </div>
-    `
-    berlinDiv.style.pointerEvents = 'none'
-
-    // Berlin geo → sphere coords (radius slightly above surface)
-    const lat = 52.52 * (Math.PI / 180)
-    const lon = 13.4 * (Math.PI / 180)
-    const r = 1.06
-    const berlinX = r * Math.cos(lat) * Math.sin(lon)
-    const berlinY = r * Math.sin(lat)
-    const berlinZ = r * Math.cos(lat) * Math.cos(lon)
-
-    const berlinLabel = new CSS2DObject(berlinDiv)
-    berlinLabel.position.set(berlinX, berlinY, berlinZ)
-
-    // Marker pin
-    const markerGeo = new THREE.SphereGeometry(0.018, 16, 16)
-    const markerMat = new THREE.MeshBasicMaterial({ color: 0x60a5fa })
-    const marker = new THREE.Mesh(markerGeo, markerMat)
-    marker.position.set(berlinX, berlinY, berlinZ)
-
-    const normalQuaternion = new THREE.Quaternion()
-    const berlinQuaternion = new THREE.Quaternion()
-    normalQuaternion.setFromEuler(new THREE.Euler(0, -1.8, -0.41))
-    berlinQuaternion.setFromEuler(new THREE.Euler(0.1, -1.65, -0.85))
 
     const composer = new EffectComposer(renderer)
     composer.addPass(new RenderPass(scene, camera))
@@ -198,7 +147,6 @@ export default function HeroScene({ flyToBerlin, onLoad, onProgress }) {
       `,
     })
 
-    // Soft Fresnel-like atmosphere
     const atmosphereMaterial = new THREE.ShaderMaterial({
       uniforms: {
         glowColor: { value: new THREE.Color(0x4a90ff) },
@@ -243,8 +191,6 @@ export default function HeroScene({ flyToBerlin, onLoad, onProgress }) {
 
     const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial)
     const planet = new THREE.Mesh(planetGeometry, planetMaterial)
-    planet.add(berlinLabel)
-    planet.add(marker)
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.12)
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2)
@@ -289,14 +235,12 @@ export default function HeroScene({ flyToBerlin, onLoad, onProgress }) {
       renderer.setPixelRatio(pr)
       renderer.setSize(window.innerWidth, window.innerHeight)
       composer.setSize(window.innerWidth, window.innerHeight)
-      labelRenderer.setSize(window.innerWidth, window.innerHeight)
     }
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
     window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('resize', handleResize)
 
-    // Pause render loop when hero leaves viewport
     const io = new IntersectionObserver(
       ([entry]) => {
         visibleRef.current = entry.isIntersecting
@@ -314,14 +258,12 @@ export default function HeroScene({ flyToBerlin, onLoad, onProgress }) {
       atmoGeometry,
       cloudGeometry,
       moonGeometry,
-      markerGeo,
       starMaterial,
       bgMaterial,
       planetMaterial,
       atmosphereMaterial,
       cloudMaterial,
       moonMaterial,
-      markerMat,
     ]
 
     function animate() {
@@ -338,29 +280,17 @@ export default function HeroScene({ flyToBerlin, onLoad, onProgress }) {
         moon.position.y = Math.sin(time) * 0.8
         moon.rotation.y += 0.0005 * speed
         clouds.rotation.y += -0.00006 * speed
+        planet.rotateY(0.00015)
         time += 0.001 * speed
       } else {
         moon.position.set(1.6, 0.5, 1.2)
       }
 
-      if (flyRef.current) {
-        planet.quaternion.slerp(berlinQuaternion, reduced ? 0.08 : 0.02)
-        camera.position.z += (1.55 - camera.position.z) * (reduced ? 0.08 : 0.02)
-        camera.position.x += (0 - camera.position.x) * 0.04
-        camera.position.y += (0.15 - camera.position.y) * 0.04
-      } else {
-        if (!reduced) planet.rotateY(0.00015)
-        camera.position.x += (mouse.x * 1.6 - camera.position.x) * 0.05
-        camera.position.y += (mouse.y * 1.2 - camera.position.y) * 0.05
-        camera.position.z += (targetCameraZ - camera.position.z) * 0.05
-      }
-
-      const labelEl = berlinDiv.querySelector('div')
-      if (labelEl) labelEl.style.display = flyRef.current ? 'block' : 'none'
-      marker.visible = flyRef.current
+      camera.position.x += (mouse.x * 1.6 - camera.position.x) * 0.05
+      camera.position.y += (mouse.y * 1.2 - camera.position.y) * 0.05
+      camera.position.z += (targetCameraZ - camera.position.z) * 0.05
 
       camera.lookAt(0, 0, 0)
-      labelRenderer.render(scene, camera)
       composer.render()
     }
 
@@ -372,8 +302,6 @@ export default function HeroScene({ flyToBerlin, onLoad, onProgress }) {
       window.removeEventListener('scroll', handleScroll)
       io.disconnect()
       cancelAnimationFrame(animationId)
-
-      labelRenderer.domElement?.parentElement?.removeChild(labelRenderer.domElement)
 
       disposables.forEach((d) => d.dispose?.())
       textures.forEach((t) => t.dispose?.())
