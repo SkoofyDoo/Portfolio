@@ -8,11 +8,16 @@ Interaktives 3D-Portfolio für Fullstack-Entwicklung mit Fokus auf **Python & Ja
 
 ## Screenshots
 
-| Hero · 3D-Globus | Projekte · Featured Cases |
-|:--:|:--:|
-| ![Hero – interaktiver 3D-Globus](docs/screenshots/hero.png) | ![Projekte – Featured Cases & Live-Previews](docs/screenshots/projects.png) |
+### Hero · interaktiver 3D-Globus
+
+![Hero – interaktiver 3D-Globus](docs/screenshots/hero.png)
+
+### Projekte · Featured Cases & Live-Previews
+
+![Projekte – Featured Cases & Live-Previews](docs/screenshots/projects.png)
 
 ---
+
 
 ## Überblick
 
