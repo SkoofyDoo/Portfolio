@@ -33,6 +33,11 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
+/* Prefer GPU-composited transforms for motion */
+.will-change-transform {
+  will-change: transform;
+}
+
 ::selection {
   background: rgba(59, 130, 246, 0.35);
   color: #fff;

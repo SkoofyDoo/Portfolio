@@ -66,9 +66,9 @@ export default function LiveProof() {
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
+              transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className={`group rounded-2xl border p-5 transition hover:-translate-y-0.5 hover:border-white/25 ${item.accent}`}
+              className={`group rounded-2xl border p-5 transition-[border-color,transform,box-shadow] duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25 ${item.accent}`}
             >
               <div className="mb-3 flex items-center justify-between gap-2">
                 <span

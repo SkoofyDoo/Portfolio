@@ -82,6 +82,7 @@ export const skillGroups = {
       "JavaScript",
       "React",
       "Node.js",
+      "Express",
       "Python",
       "FastAPI",
       "OpenCV",
@@ -101,7 +102,7 @@ export const skillGroups = {
       "Bedrock",
       "DynamoDB",
       "Cognito",
-      "Express",
+
       "Stripe",
     ],
   },

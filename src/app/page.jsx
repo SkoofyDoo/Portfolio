@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Nav from '@/components/Nav'
 import HeroOverlay from '@/components/HeroOverlay'
 import Footer from '@/components/Footer'
@@ -21,6 +21,7 @@ const Contact = dynamic(() => import('@/components/Contact'))
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
+  const [showLoader, setShowLoader] = useState(true)
   const [progress, setProgress] = useState(0)
 
   const handleLoad = useCallback(() => {
@@ -31,6 +32,12 @@ export default function Home() {
     setProgress(value)
   }, [])
 
+  useEffect(() => {
+    if (!loaded) return
+    const t = setTimeout(() => setShowLoader(false), 320)
+    return () => clearTimeout(t)
+  }, [loaded])
+
   return (
     <div id="top" className="bg-background tracking-wide">
       <SpeedInsights />
@@ -40,14 +47,19 @@ export default function Home() {
       <div className="relative h-screen">
         <HeroScene onLoad={handleLoad} onProgress={handleProgress} />
 
-        {!loaded && (
-          <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+        {showLoader && (
+          <div
+            className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-black transition-opacity duration-300 ease-out ${
+              loaded ? 'pointer-events-none opacity-0' : 'opacity-100'
+            }`}
+            aria-hidden={loaded}
+          >
             <p className="loading-pulse text-sm tracking-[0.2em] text-white/80">
               Building systems, not slides…
             </p>
             <div className="mt-6 h-0.5 w-48 overflow-hidden rounded-full bg-white/10">
               <div
-                className="h-full rounded-full bg-accent transition-all duration-300 ease-out"
+                className="h-full rounded-full bg-accent transition-[width] duration-300 ease-out"
                 style={{ width: `${Math.max(progress, 8)}%` }}
               />
             </div>

@@ -59,7 +59,7 @@ export default function About() {
                 key={group.title}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
+                transition={{ duration: 0.45, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
                 className={`rounded-2xl border p-5 ${
                   group.highlight
@@ -93,8 +93,8 @@ export default function About() {
                         group.highlight
                           ? 'rounded-full border border-accent/25 bg-accent/15 px-3 py-1 text-sm font-medium text-blue-200'
                           : group.muted
-                            ? 'rounded-full border border-white/5 bg-white/[0.03] px-3 py-1 text-sm text-zinc-500'
-                            : 'chip'
+                            ? 'rounded-full border border-white/5 bg-white/[0.03] px-3 py-1 text-sm font-medium text-zinc-500'
+                            : 'rounded-full border border-white/10 bg-zinc-800/80 px-3 py-1 text-sm font-medium text-zinc-300'
                       }
                     >
                       {skill}
@@ -120,7 +120,7 @@ export default function About() {
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.06 }}
+                transition={{ duration: 0.45, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
                 className="rounded-2xl border border-white/10 bg-zinc-900/60 p-5"
               >

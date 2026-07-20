@@ -29,7 +29,7 @@ export default function WhyMe() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
           >
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
@@ -75,7 +75,7 @@ export default function WhyMe() {
                 key={p.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.07 }}
+                transition={{ duration: 0.45, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
                 className="rounded-2xl border border-white/10 bg-zinc-900/70 p-5"
               >

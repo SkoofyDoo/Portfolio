@@ -1,7 +1,9 @@
 'use client'
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
+
+const easeOut = [0.22, 1, 0.36, 1]
 
 function MetricTiles({ metrics, compact, limit }) {
   const cap = limit ?? (compact ? 4 : 4)
@@ -43,19 +45,44 @@ function FlowSteps({ flow }) {
 }
 
 function ProjectMedia({ media, title }) {
+  const videoRef = useRef(null)
+  const wrapRef = useRef(null)
+
+  useEffect(() => {
+    if (media.type !== 'video' && media.type !== 'mp4') return
+    const video = videoRef.current
+    const wrap = wrapRef.current
+    if (!video || !wrap) return
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.35, rootMargin: '40px' }
+    )
+    io.observe(wrap)
+    return () => io.disconnect()
+  }, [media.type, media.src])
+
   if (media.type === 'video' || media.type === 'mp4') {
     return (
-      <video
-        className="absolute inset-0 h-full w-full object-cover object-top opacity-90"
-        src={media.src}
-        poster={media.poster || undefined}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-label={`${title} preview`}
-      />
+      <div ref={wrapRef} className="absolute inset-0">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover object-top opacity-90"
+          src={media.src}
+          poster={media.poster || undefined}
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-label={`${title} preview`}
+        />
+      </div>
     )
   }
 
@@ -83,8 +110,6 @@ function ProjectVisual({ project, featured }) {
       media.type === 'video' ||
       media.type === 'mp4')
 
-  // Secondary cards: fixed aspect can clip/overflow content on narrow screens —
-  // use flexible min-height on mobile, aspect only from sm up when no dense overlay.
   const boxClass = featured
     ? 'min-h-[220px] sm:aspect-[16/10] md:min-h-[280px] md:aspect-[16/11]'
     : 'min-h-[180px] sm:min-h-0 sm:aspect-[16/10]'
@@ -158,7 +183,7 @@ function ProjectLinks({ project, className = '' }) {
         href={project.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 text-sm font-medium text-accent transition hover:text-blue-300"
+        className="inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-blue-300"
       >
         {project.label}
         <span aria-hidden>→</span>
@@ -168,7 +193,7 @@ function ProjectLinks({ project, className = '' }) {
           href={project.secondaryHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-zinc-400 transition hover:text-white"
+          className="text-sm text-zinc-400 transition-colors hover:text-white"
         >
           {project.secondaryLabel || 'GitHub'} →
         </a>
@@ -183,20 +208,20 @@ export function FeaturedProject({ project, index }) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay: 0.05 }}
-      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.55, delay: 0.04, ease: easeOut }}
+      viewport={{ once: true, margin: '-60px' }}
       className="grid items-center gap-8 lg:gap-12 md:grid-cols-2"
     >
-      <div className={`group relative ${reverse ? 'md:order-2' : ''}`}>
-        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-blue-500/20 to-transparent opacity-0 blur-xl transition duration-500 group-hover:opacity-100" />
-        <div className="relative transition duration-500 md:group-hover:scale-[1.02] md:group-hover:-translate-y-1">
+      <div className={`group relative min-w-0 ${reverse ? 'md:order-2' : ''}`}>
+        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-blue-500/20 to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="relative will-change-transform transition-transform duration-500 ease-out md:group-hover:scale-[1.015] md:group-hover:-translate-y-0.5">
           <ProjectVisual project={project} featured />
         </div>
       </div>
 
-      <div className={reverse ? 'md:order-1' : ''}>
+      <div className={`min-w-0 ${reverse ? 'md:order-1' : ''}`}>
         <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-accent">
           Featured · {project.role}
         </p>
@@ -257,15 +282,17 @@ export function ProjectCard({ project, index }) {
   const ref = useRef(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const springX = useSpring(x, { stiffness: 200, damping: 20 })
-  const springY = useSpring(y, { stiffness: 200, damping: 20 })
-  const rotateX = useTransform(springY, [-0.5, 0.5], [6, -6])
-  const rotateY = useTransform(springX, [-0.5, 0.5], [-8, 8])
+  const springX = useSpring(x, { stiffness: 120, damping: 18, mass: 0.4 })
+  const springY = useSpring(y, { stiffness: 120, damping: 18, mass: 0.4 })
+  const rotateX = useTransform(springY, [-0.5, 0.5], [5, -5])
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-6, 6])
   const isPraxis = project.kind === 'praxis'
 
   const onMove = (e) => {
-    // 3D tilt only on pointer-fine (desktop) — transform causes overflow on mobile
     if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+      return
+    }
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return
     }
     const rect = ref.current?.getBoundingClientRect()
@@ -281,18 +308,25 @@ export function ProjectCard({ project, index }) {
 
   return (
     <motion.article
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: index * 0.08 }}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: easeOut }}
       viewport={{ once: true }}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      style={{ rotateX, rotateY, transformPerspective: 900 }}
-      className="group flex h-full min-w-0 max-w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/80 p-4 shadow-xl shadow-black/20 transition hover:border-white/20 hover:shadow-blue-500/10 sm:p-5 [transform-style:preserve-3d]"
+      className="group flex h-full min-w-0 max-w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/80 p-4 shadow-xl shadow-black/20 transition-colors hover:border-white/20 hover:shadow-blue-500/10 sm:p-5"
     >
-      <div className="min-w-0 w-full overflow-hidden rounded-xl">
-        <ProjectVisual project={project} />
+      {/* Tilt only on inner layer — avoids fighting whileInView opacity/y */}
+      <div
+        ref={ref}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        className="min-w-0 w-full [perspective:900px]"
+      >
+        <motion.div
+          style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+          className="min-w-0 w-full overflow-hidden rounded-xl will-change-transform"
+        >
+          <ProjectVisual project={project} />
+        </motion.div>
       </div>
       <h3 className="mt-4 break-words text-lg font-semibold text-white">{project.title}</h3>
       <p className="mt-1 break-words text-sm text-zinc-500">{project.subtitle}</p>

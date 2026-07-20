@@ -217,6 +217,11 @@ export default function HeroScene({ onLoad, onProgress }) {
     let time = 0
     const mouse = { x: 0, y: 0 }
     let targetCameraZ = 5
+    const timer = new THREE.Timer()
+    timer.connect(document) // Page Visibility API — avoid huge deltas after tab switch
+    // Higher = snappier follow; frame-rate independent via exp smoothing
+    const CAM_SMOOTH = 6
+    const SPIN = 0.045 // planet spin (halved)
 
     const handleMouseMove = (event) => {
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1
@@ -244,6 +249,9 @@ export default function HeroScene({ onLoad, onProgress }) {
     const io = new IntersectionObserver(
       ([entry]) => {
         visibleRef.current = entry.isIntersecting
+        if (entry.isIntersecting) {
+          timer.reset() // avoid large delta after hero was offscreen
+        }
       },
       { threshold: 0.05 }
     )
@@ -266,29 +274,31 @@ export default function HeroScene({ onLoad, onProgress }) {
       moonMaterial,
     ]
 
-    function animate() {
+    function animate(timestamp) {
       animationId = requestAnimationFrame(animate)
 
       if (!visibleRef.current) return
 
+      timer.update(timestamp)
+      const dt = Math.min(timer.getDelta(), 0.05)
       const reduced = reduceMotionRef.current
-      const speed = reduced ? 0.15 : 1
+      const alpha = 1 - Math.exp(-CAM_SMOOTH * dt)
 
       if (!reduced) {
+        time += dt * 0.15 // moon orbit (×0.25 vs original)
         moon.position.z = Math.cos(time) * 2
         moon.position.x = Math.sin(time) * 2
         moon.position.y = Math.sin(time) * 0.8
-        moon.rotation.y += 0.0005 * speed
-        clouds.rotation.y += -0.00006 * speed
-        planet.rotateY(0.00015)
-        time += 0.001 * speed
+        moon.rotation.y += 0.075 * dt
+        clouds.rotation.y -= 0.018 * dt
+        planet.rotateY(SPIN * dt)
       } else {
         moon.position.set(1.6, 0.5, 1.2)
       }
 
-      camera.position.x += (mouse.x * 1.6 - camera.position.x) * 0.05
-      camera.position.y += (mouse.y * 1.2 - camera.position.y) * 0.05
-      camera.position.z += (targetCameraZ - camera.position.z) * 0.05
+      camera.position.x += (mouse.x * 1.6 - camera.position.x) * alpha
+      camera.position.y += (mouse.y * 1.2 - camera.position.y) * alpha
+      camera.position.z += (targetCameraZ - camera.position.z) * alpha
 
       camera.lookAt(0, 0, 0)
       composer.render()
@@ -302,6 +312,7 @@ export default function HeroScene({ onLoad, onProgress }) {
       window.removeEventListener('scroll', handleScroll)
       io.disconnect()
       cancelAnimationFrame(animationId)
+      timer.dispose()
 
       disposables.forEach((d) => d.dispose?.())
       textures.forEach((t) => t.dispose?.())

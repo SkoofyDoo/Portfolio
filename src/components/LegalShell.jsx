@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Footer from '@/components/Footer'
 
 export default function LegalShell({ title, eyebrow, children }) {
@@ -5,25 +6,25 @@ export default function LegalShell({ title, eyebrow, children }) {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="border-b border-white/5 bg-zinc-950/80 backdrop-blur-md">
         <div className="section-shell flex items-center justify-between py-5">
-          <a
+          <Link
             href="/"
             className="text-sm font-semibold tracking-wide text-white transition hover:text-accent"
           >
             Evgeny Kvest
-          </a>
+          </Link>
           <nav className="flex items-center gap-5 text-sm text-zinc-400">
-            <a href="/impressum" className="transition hover:text-white">
+            <Link href="/impressum" className="transition hover:text-white">
               Impressum
-            </a>
-            <a href="/datenschutz" className="transition hover:text-white">
+            </Link>
+            <Link href="/datenschutz" className="transition hover:text-white">
               Datenschutz
-            </a>
-            <a
+            </Link>
+            <Link
               href="/"
               className="rounded-full border border-white/15 px-3 py-1 text-zinc-300 transition hover:border-white/30 hover:text-white"
             >
               ← Portfolio
-            </a>
+            </Link>
           </nav>
         </div>
       </header>
@@ -42,12 +43,12 @@ export default function LegalShell({ title, eyebrow, children }) {
             {children}
           </div>
           <div className="mt-14 border-t border-white/5 pt-8">
-            <a
+            <Link
               href="/"
               className="inline-flex items-center gap-2 text-sm font-medium text-accent transition hover:text-blue-300"
             >
               ← Zurück zur Startseite
-            </a>
+            </Link>
           </div>
         </div>
       </main>
@@ -67,15 +68,26 @@ export function LegalSection({ title, children }) {
 }
 
 export function LegalLink({ href, children }) {
+  const external = href.startsWith('http') || href.startsWith('mailto:')
+  if (external) {
+    return (
+      <a
+        href={href}
+        className="text-accent underline-offset-2 transition hover:text-blue-300 hover:underline"
+        {...(href.startsWith('http')
+          ? { target: '_blank', rel: 'noopener noreferrer' }
+          : {})}
+      >
+        {children}
+      </a>
+    )
+  }
   return (
-    <a
+    <Link
       href={href}
       className="text-accent underline-offset-2 transition hover:text-blue-300 hover:underline"
-      {...(href.startsWith('http')
-        ? { target: '_blank', rel: 'noopener noreferrer' }
-        : {})}
     >
       {children}
-    </a>
+    </Link>
   )
 }
