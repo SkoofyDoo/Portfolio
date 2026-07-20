@@ -32,9 +32,11 @@ export default function Projects() {
           <h3 className="mb-8 text-sm font-medium uppercase tracking-[0.2em] text-zinc-500">
             Weitere Systeme
           </h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:items-stretch">
             {secondary.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+              <div key={project.id} className="min-w-0 max-w-full">
+                <ProjectCard project={project} index={index} />
+              </div>
             ))}
           </div>
         </div>

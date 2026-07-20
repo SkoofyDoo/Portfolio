@@ -3,16 +3,19 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 
-function MetricTiles({ metrics, compact }) {
-  const items = compact ? metrics.slice(0, 4) : metrics
+function MetricTiles({ metrics, compact, limit }) {
+  const cap = limit ?? (compact ? 4 : 4)
+  const items = metrics.slice(0, cap)
   return (
-    <div className={`grid gap-2 ${compact ? 'grid-cols-2' : 'grid-cols-2'}`}>
+    <div className="grid min-w-0 grid-cols-1 gap-1.5 sm:grid-cols-2 sm:gap-2">
       {items.map((m) => (
         <div
           key={m}
-          className="rounded-lg border border-white/10 bg-black/35 px-3 py-2.5 backdrop-blur-sm"
+          className="min-w-0 rounded-lg border border-white/10 bg-black/35 px-2.5 py-2 backdrop-blur-sm sm:px-3 sm:py-2.5"
         >
-          <p className="text-xs leading-snug text-zinc-200 md:text-[13px]">{m}</p>
+          <p className="break-words text-[11px] leading-snug text-zinc-200 sm:text-xs md:text-[13px]">
+            {m}
+          </p>
         </div>
       ))}
     </div>
@@ -22,14 +25,14 @@ function MetricTiles({ metrics, compact }) {
 function FlowSteps({ flow }) {
   if (!flow?.length) return null
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-1.5">
+    <div className="mt-3 flex min-w-0 flex-wrap items-center gap-1 sm:mt-4 sm:gap-1.5">
       {flow.map((step, i) => (
-        <span key={step} className="flex items-center gap-1.5">
-          <span className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-[10px] uppercase tracking-wide text-zinc-300">
+        <span key={step} className="flex min-w-0 max-w-full items-center gap-1 sm:gap-1.5">
+          <span className="max-w-full truncate rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wide text-zinc-300 sm:px-2 sm:py-1 sm:text-[10px]">
             {step}
           </span>
           {i < flow.length - 1 && (
-            <span className="text-zinc-600" aria-hidden>
+            <span className="shrink-0 text-zinc-600" aria-hidden>
               →
             </span>
           )}
@@ -80,57 +83,65 @@ function ProjectVisual({ project, featured }) {
       media.type === 'video' ||
       media.type === 'mp4')
 
+  // Secondary cards: fixed aspect can clip/overflow content on narrow screens —
+  // use flexible min-height on mobile, aspect only from sm up when no dense overlay.
+  const boxClass = featured
+    ? 'min-h-[220px] sm:aspect-[16/10] md:min-h-[280px] md:aspect-[16/11]'
+    : 'min-h-[180px] sm:min-h-0 sm:aspect-[16/10]'
+
   return (
     <div
-      className={`relative overflow-hidden rounded-xl border border-white/10 bg-zinc-950 ${
-        featured ? 'aspect-[16/10] md:min-h-[280px] md:aspect-[16/11]' : 'min-h-[200px] aspect-[16/10]'
-      }`}
+      className={`relative w-full min-w-0 overflow-hidden rounded-xl border border-white/10 bg-zinc-950 ${boxClass}`}
     >
       {hasMedia ? (
         <>
           <ProjectMedia media={media} title={project.title} />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
         </>
       ) : (
         <>
           <div className={`absolute inset-0 bg-gradient-to-br ${project.accent}`} />
-          <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/5 blur-3xl" />
+          <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/5 blur-3xl" />
         </>
       )}
 
-      <div className="relative flex h-full flex-col justify-between p-5 pt-8">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="chip border-white/15 bg-black/40 text-white/85">
+      <div className="relative z-[1] flex h-full min-h-0 w-full min-w-0 flex-col justify-between gap-3 overflow-hidden p-3 sm:gap-4 sm:p-5 sm:pt-8">
+        <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
+          <span className="chip max-w-full truncate border-white/15 bg-black/40 text-white/85">
             {project.previewLabel}
           </span>
           {isPraxis && (
-            <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-amber-200/90">
-              Praxisprojekt
+            <span className="shrink-0 rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-amber-200/90">
+              Praxis
             </span>
           )}
           {project.kind === 'product' && (
-            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-emerald-200/90">
+            <span className="shrink-0 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-emerald-200/90">
               {project.href?.includes('http') && !project.href.includes('github')
                 ? 'Live'
-                : 'Open / Public'}
+                : 'Open'}
             </span>
           )}
         </div>
 
-        <div>
+        <div className="min-w-0">
           {!hasMedia && (
             <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
               {isPraxis ? 'Ergebnis · Fakten' : 'Highlights'}
             </p>
           )}
           {hasMedia ? (
-            <div className="rounded-lg border border-white/10 bg-black/55 p-3 backdrop-blur-sm">
-              <MetricTiles metrics={project.metrics.slice(0, 2)} compact />
+            <div className="min-w-0 rounded-lg border border-white/10 bg-black/55 p-2.5 backdrop-blur-sm sm:p-3">
+              <MetricTiles metrics={project.metrics} limit={2} compact />
               {featured && <FlowSteps flow={project.flow} />}
             </div>
           ) : (
             <>
-              <MetricTiles metrics={project.metrics} compact={!featured} />
+              <MetricTiles
+                metrics={project.metrics}
+                limit={featured ? 4 : 2}
+                compact={!featured}
+              />
               {featured && <FlowSteps flow={project.flow} />}
             </>
           )}
@@ -253,6 +264,10 @@ export function ProjectCard({ project, index }) {
   const isPraxis = project.kind === 'praxis'
 
   const onMove = (e) => {
+    // 3D tilt only on pointer-fine (desktop) — transform causes overflow on mobile
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+      return
+    }
     const rect = ref.current?.getBoundingClientRect()
     if (!rect) return
     x.set((e.clientX - rect.left) / rect.width - 0.5)
@@ -274,17 +289,19 @@ export function ProjectCard({ project, index }) {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
-      className="group flex h-full flex-col rounded-2xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl shadow-black/20 transition hover:border-white/20 hover:shadow-blue-500/10"
+      className="group flex h-full min-w-0 max-w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/80 p-4 shadow-xl shadow-black/20 transition hover:border-white/20 hover:shadow-blue-500/10 sm:p-5 [transform-style:preserve-3d]"
     >
-      <ProjectVisual project={project} />
-      <h3 className="mt-4 text-lg font-semibold text-white">{project.title}</h3>
-      <p className="mt-1 text-sm text-zinc-500">{project.subtitle}</p>
-      <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">
+      <div className="min-w-0 w-full overflow-hidden rounded-xl">
+        <ProjectVisual project={project} />
+      </div>
+      <h3 className="mt-4 break-words text-lg font-semibold text-white">{project.title}</h3>
+      <p className="mt-1 break-words text-sm text-zinc-500">{project.subtitle}</p>
+      <p className="mt-3 flex-1 break-words text-sm leading-relaxed text-zinc-400">
         {project.result || project.solution}
       </p>
-      <div className="mt-4 flex flex-wrap gap-1.5">
+      <div className="mt-4 flex min-w-0 flex-wrap gap-1.5">
         {project.stack.slice(0, 5).map((tech) => (
-          <span key={tech} className="chip">
+          <span key={tech} className="chip max-w-full">
             {tech}
           </span>
         ))}
