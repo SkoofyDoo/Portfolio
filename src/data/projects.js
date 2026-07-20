@@ -145,6 +145,54 @@ export const projects = [
     flow: ["Upload", "Analyze", "Extract", "Track", "Notify"],
   },
   {
+    id: "mindguard",
+    title: "MindGuard",
+    subtitle: "Privacy-first Mood Monitoring · Tech Showcase",
+    kind: "product",
+    featured: false,
+    confidential: false,
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Framer Motion",
+      "Canvas",
+      "Tailwind",
+    ],
+    useCase:
+      "Stimmung per kurzem Video erfassen – ohne Fragebögen, mit maximaler Privatsphäre und klarer Pipeline-Visualisierung.",
+    result:
+      "Live-Demo: Frame-Extraktion & Qualitätsheuristiken client-side. Nach Validierung als Showcase beibehalten (kein aktiver Produkt-Roadmap).",
+    problem:
+      "Emotion-AI-Produkte wirken oft undurchsichtig; Nutzer misstrauen Video-Uploads und „Black-Box“-Analysen.",
+    solution:
+      "Zero-knowledge Ansatz: Video bleibt im Browser. Sharpness/Contrast-Heuristiken, Frame-Review, Pipeline-Visualizer – Next.js 16 + React 19.",
+    metrics: [
+      "Live: mind-guard-five.vercel.app",
+      "100% client-side Video",
+      "Pipeline Visualizer",
+      "Spec-driven · schnelles Prototyping",
+    ],
+    architecture: [
+      "Video → Frames (Canvas)",
+      "Local quality heuristics",
+      "User frame review",
+      "Animated pipeline UI",
+    ],
+    role: "Frontend · Privacy-first Media",
+    href: "https://mind-guard-five.vercel.app",
+    secondaryHref: "https://github.com/SkoofyDoo/MindGuard",
+    label: "Live Demo",
+    secondaryLabel: "GitHub",
+    accent: "from-rose-500/25 via-pink-600/10 to-transparent",
+    previewLabel: "Live · Client-side Media",
+    media: {
+      type: "video",
+      src: "/projects/mindguard/mindguard.mp4",
+    },
+    flow: ["Record", "Frames", "QC", "Pipeline UI", "Insights"],
+  },
+  {
     id: "sharpeye",
     title: "SharpEye",
     subtitle: "Image Quality Control Library (CLI · API · Agents)",

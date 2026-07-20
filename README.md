@@ -39,7 +39,7 @@ Darunter: Live-Proof, „Warum ich“, Featured Cases, interaktive Schärfe-Demo
 - **3D-Hero** mit Custom GLSL (Day/Night, Normal Map), Bloom, Scroll-Dolly, Mouse-Parallax
 - Loading mit Progress + Brand-Line (*Building systems, not slides…*)
 - Sticky Glass-Navigation (Desktop)
-- **Live-Proof Strip** — widerspruch.jetzt, Dallio, SharpEye (ein Klick)
+- **Live-Proof Strip** — widerspruch.jetzt, Dallio, MindGuard, SharpEye (Live-Demos zuerst)
 - **„Warum ich als Junior zähle“** — Shipper / Pipelines / Prototypen / ehrlich im Aufbau
 - Featured Case Studies: Use Case → Ergebnis → Architektur → Metrics
 - **MP4-Previews** für Product-Cases (Dallio, widerspruch.jetzt)
@@ -64,11 +64,14 @@ Darunter: Live-Proof, „Warum ich“, Featured Cases, interaktive Schärfe-Demo
 | Projekt | Art | Fokus | Link |
 |---|---|---|---|
 | **widerspruch.jetzt** | Product · Live | RAG / FastAPI / SGB II+X | [Demo](https://sgb2-rag-production.up.railway.app/ui/) · [GitHub](https://github.com/SkoofyDoo/widerspruch.jetzt) |
-| **3D-Vorschau-Pipeline** | Praxis | Headless WebGL, Modellschutz | [Architektur](https://github.com/SkoofyDoo/3D-Vorschau-Pipeline-Headless-Rendering-Approval-Workflow) |
 | **Dallio** | Product · Live | Document AI (AWS Bedrock) | [dallio.de](https://dallio.de) · [GitHub](https://github.com/SkoofyDoo/Dallio) |
-| **SharpEye** | Product | Image QC (CLI / API / Agents) | [GitHub](https://github.com/SkoofyDoo/sharpeye) |
+| **MindGuard** | Product · Live | Privacy-first media / mood showcase | [Demo](https://mind-guard-five.vercel.app) · [GitHub](https://github.com/SkoofyDoo/MindGuard) |
+| **3D-Vorschau-Pipeline** | Praxis | Headless WebGL, Modellschutz | [Architektur](https://github.com/SkoofyDoo/3D-Vorschau-Pipeline-Headless-Rendering-Approval-Workflow) |
+| **SharpEye** | Product · Open | Image QC (CLI / API / Agents) | [GitHub](https://github.com/SkoofyDoo/sharpeye) |
 | **Client-Based-VideoSlicer** | Praxis | Frame-Extraktion im Browser | [Architektur](https://github.com/SkoofyDoo/Client-Based-VideoSlicer) |
 | **Automatisierte Schärfe-Analyse** | Praxis | Server-side OpenCV.WASM QC | [Architektur](https://github.com/SkoofyDoo/Automatisierte-Schaerfe-Analyse) |
+
+**Priorität:** Live-Demos vor reinen Repo-/Praxis-Einträgen.
 
 **Praxis:** Architektur & Fakten auf GitHub — vollständiger Production-Code nicht öffentlich.
 

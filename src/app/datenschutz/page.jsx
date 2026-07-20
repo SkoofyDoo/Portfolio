@@ -125,6 +125,10 @@ export default function Datenschutz() {
             </LegalLink>{' '}
             (Hosting u.&nbsp;a. über Railway / ggf. Hugging Face in der Demo)
           </li>
+          <li>
+            <LegalLink href="https://mind-guard-five.vercel.app">MindGuard Live-Demo</LegalLink>{' '}
+            (Vercel)
+          </li>
           <li>Weitere Projektrepos (z.&nbsp;B. SharpEye, Praxis-Pipelines)</li>
         </ul>
         <p>

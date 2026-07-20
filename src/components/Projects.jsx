@@ -3,9 +3,18 @@
 import { projects } from '@/data/projects'
 import { FeaturedProject, ProjectCard } from './ProjectCard'
 
+/** Live demos (product URL, not only GitHub) rank highest */
+function isLiveDemo(p) {
+  return Boolean(p.href && !String(p.href).includes('github.com'))
+}
+
+function byLiveFirst(a, b) {
+  return Number(isLiveDemo(b)) - Number(isLiveDemo(a))
+}
+
 export default function Projects() {
-  const featured = projects.filter((p) => p.featured)
-  const secondary = projects.filter((p) => !p.featured)
+  const featured = projects.filter((p) => p.featured).sort(byLiveFirst)
+  const secondary = projects.filter((p) => !p.featured).sort(byLiveFirst)
 
   return (
     <section id="projekte" className="scroll-mt-28 py-24 md:py-28">

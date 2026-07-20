@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 
+/** Live demos first — highest priority for recruiters */
 const lives = [
   {
     badge: 'LIVE',
@@ -18,6 +19,15 @@ const lives = [
     href: 'https://dallio.de',
     cta: 'dallio.de',
     accent: 'border-violet-500/30 bg-violet-500/5',
+  },
+  {
+    badge: 'LIVE',
+    title: 'MindGuard',
+    blurb:
+      'Privacy-first Mood-Demo: Video-Frames & Pipeline-Visualisierung – 100% im Browser.',
+    href: 'https://mind-guard-five.vercel.app',
+    cta: 'Live Demo',
+    accent: 'border-rose-500/30 bg-rose-500/5',
   },
   {
     badge: 'OPEN',
@@ -43,11 +53,11 @@ export default function LiveProof() {
             </h2>
           </div>
           <p className="max-w-md text-sm text-zinc-500 md:text-right">
-            Ein starker Junior liefert Beweis, nicht Versprechen. Klick rein.
+            Live-Demos zuerst. Ein starker Junior liefert Beweis, nicht Versprechen.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {lives.map((item, i) => (
             <motion.a
               key={item.title}
@@ -60,12 +70,20 @@ export default function LiveProof() {
               viewport={{ once: true }}
               className={`group rounded-2xl border p-5 transition hover:-translate-y-0.5 hover:border-white/25 ${item.accent}`}
             >
-              <div className="mb-3 flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <span
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
+                    item.badge === 'LIVE'
+                      ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300'
+                      : 'border-white/15 bg-white/5 text-zinc-400'
+                  }`}
+                >
+                  {item.badge === 'LIVE' && (
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                  )}
                   {item.badge}
                 </span>
-                <span className="text-xs text-zinc-500 transition group-hover:text-accent">
+                <span className="shrink-0 text-xs text-zinc-500 transition group-hover:text-accent">
                   {item.cta} →
                 </span>
               </div>
