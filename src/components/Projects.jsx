@@ -1,57 +1,44 @@
-import {motion} from 'framer-motion'
+'use client'
+
+import { projects } from '@/data/projects'
+import { FeaturedProject, ProjectCard } from './ProjectCard'
 
 export default function Projects() {
-    const projects = [
-        {
-            title: '3D-Vorschau-Pipeline — Headless Rendering & Modellschutz',
-            stack: ['Node.js ',  'Express ', 'Nextcloud WebDAV ','Puppeteer ', 'SSE ', 'Three.js ', 'DynamoDB ', 'Cognito', 'Amplify'],
-            description: 'Serverseitige Pipeline zur automatisierten Vorschaugenerierung von 3D-Medizinscans. Puppeteer startet einen headless Chromium-Prozess, der Three.js mit WebGL2 ausführt und 12 Kameraansichten rendert – texturiert und als Wireframe.',
-            github: 'https://github.com/SkoofyDoo/3D-Vorschau-Pipeline-Headless-Rendering-Approval-Workflow',
-            label: 'GitHub'
-        },
-        {
-            title: 'Dallio',
-            stack: ['EC2 ', 'S3 ', 'Lambda ', 'Bedrock ', 'DynamoDB ', 'Cognito', 'Amplify'],
-            description: 'Der Smart Document Analyzer ist ein intelligenter persönlicher Assistent für die deutsche Bürokratie. Die Anwendung hilft Benutzern, ihre Dokumente (Rechnungen, Behördenbriefe) zu digitalisieren, Finanzen zu tracken und automatisch Termine aus Briefen zu extrahieren.',
-            github: 'https://dallio.de',
-            label: 'Dallio.de'
-        },
-        { 
-            title: 'Client-Based-VideoSlicer',
-            stack: ['JavaScript ', 'React '],
-            description: 'Ein React-Komponente zur automatischen Extraktion von Einzelbildern (Frames) aus Videodateien – vollständig im Browser, ohne Backend oder externe Bibliotheken.',
-            github: 'https://github.com/SkoofyDoo/Client-Based-VideoSlicer',
-            label: 'GitHub'
-    
-        },
-        {
-            title: 'Automatisierte-Schaerfe-Analyse',
-            stack: ['Node.js ', 'OpenCV.WASM ', 'Sharp ', 'archiver '],
-            description: 'Ein Node.js-Modul zur automatischen Schärfebewertung und Filterung von Video-Frames auf dem Server. Unscharfe Bilder werden aussortiert, die besten Frames als ZIP archiviert.',
-            github: 'https://github.com/SkoofyDoo/Automatisierte-Schaerfe-Analyse',
-            label: 'GitHub'
-        },
-        
-    
-    ]
+  const featured = projects.filter((p) => p.featured)
+  const secondary = projects.filter((p) => !p.featured)
 
-    return (
-        <section className="py-20 px-10">
-            <h2 className="text-white text-center text-3xl font-bold mb-10">Projekte</h2>
-            <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-                {projects.map((project, index) => (
-                    <motion.div key={index} initial={{opacity: 0}} whileInView={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: index * 0.15}} viewport={{ once: true }} className="bg-zinc-900 rounded-xl p-6  hover:bg-zinc-800 transition-all duration-300 md:hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20">
-                        <h3 className="text-white text-lg md:text-xl font-bold mb-3 ">{project.title}</h3>
-                        <p className="text-gray-400 text-sm md:text-base">{project.description}</p>
-                        <div className='flex flex-wrap gap-2 mt-4'>
-                            {project.stack.map((tech, i) => (
-                                <span className="bg-zinc-700 text-gray-300 border text-l px-2 py-1 rounded mr-1" key={i}>{tech}</span>
-                            ))}
-                        </div>
-                        <a className="text-blue-400 hover:text-blue-300 mt-4 block" href={project.github}>{project.label || 'GitHub'}</a>
-                    </motion.div>
-                ))}
-            </div>
-        </section>
-    )
+  return (
+    <section id="projekte" className="scroll-mt-28 py-24 md:py-28">
+      <div className="section-shell">
+        <div className="mb-14 text-center md:text-left">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
+            Selected Work
+          </p>
+          <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+            Projekte, die Technik beweisen
+          </h2>
+          <p className="mt-3 max-w-2xl text-zinc-400 md:text-lg">
+            Live-Produkte, Applied RAG und Praxis-Pipelines — Use Case, Architektur und Ergebnis in Zahlen.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-20 md:gap-28">
+          {featured.map((project, index) => (
+            <FeaturedProject key={project.id} project={project} index={index} />
+          ))}
+        </div>
+
+        <div className="mt-20">
+          <h3 className="mb-8 text-sm font-medium uppercase tracking-[0.2em] text-zinc-500">
+            Weitere Systeme
+          </h3>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {secondary.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }

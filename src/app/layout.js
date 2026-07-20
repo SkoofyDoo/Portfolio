@@ -12,17 +12,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Evgeny Kvest || Portfolio",
-  description: "Fullstack Developer · 3D Web & Video Processing · Node.js · AWS",
+  title:
+    "Evgeny Kvest · Fullstack Developer | Python, JS, Computer Vision & Applied AI",
+  description:
+    "Portfolio von Evgeny Kvest – FIAE aus Berlin. Fullstack mit Python & JavaScript, OpenCV/Computer Vision, RAG und Cloud. Offen für Festanstellung und Freelance.",
+  openGraph: {
+    title: "Evgeny Kvest · Fullstack · CV & Applied AI",
+    description:
+      "Web, Media-Pipelines, OpenCV und RAG-Prototypen – interaktives Portfolio mit Live-Globe und produktiven Projekten.",
+    locale: "de_DE",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
+      lang="de"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
+        {children}
+      </body>
     </html>
   );
 }
