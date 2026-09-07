@@ -71,7 +71,7 @@ export default function Nav() {
             ))}
             <li>
               <a
-                href="/EvgenyKvest_CV.pdf"
+                href="/Evgeny_Kvest_CV.pdf"
                 download
                 className="ml-2 rounded-full border border-white/20 px-4 py-1.5 text-sm text-white hover:bg-white/10 transition-colors"
               >

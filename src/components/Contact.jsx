@@ -97,7 +97,7 @@ export default function Contact() {
                 GitHub
               </a>
               <a
-                href="/EvgenyKvest_CV.pdf"
+                href="/Evgeny_Kvest_CV.pdf"
                 download
                 className="rounded-full border border-white/20 px-5 py-2.5 text-sm text-white transition hover:bg-white/10"
               >

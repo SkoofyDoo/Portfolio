@@ -119,7 +119,7 @@ public/
     dallio/dallio.mp4
     widerspruch-jetzt/widerspruch.mp4
   *.jpg / star.png     # 3D-Texturen
-  EvgenyKvest_CV.pdf
+  Evgeny_Kvest_CV.pdf
 docs/
   screenshots/         # README: hero.png, projects.png
 ```

@@ -56,7 +56,7 @@ export default function HeroOverlay() {
             </svg>
           </a>
           <a
-            href="/EvgenyKvest_CV.pdf"
+            href="/Evgeny_Kvest_CV.pdf"
             download
             className="rounded-full border border-white/30 px-5 py-2 text-sm text-white transition hover:bg-white/10 backdrop-blur-sm"
           >
